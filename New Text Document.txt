@@ -1,0 +1,53 @@
+start web server and create the files and directories .
+
+Open XAMPP Control Panel
+Next to the Apache module, click Start
+Next to the MySQL module, click Start
+Navigate to XAMPPs installation directory (C:\xampp)
+Open the htdocs directory
+Create the following directories and files:
+
+Each file/directory will contain the following:
+
+functions.php — This file will contain all the functions we need for our shopping cart system (template header, template footer, and database connection functions).
+index.php — This file will contain the master template (header, footer, etc) and basic routing so we can include the pages below.
+home.php — This file will be the home page that will contain a featured image and 4 recently added products.
+products.php — This file will be for displaying all products with basic pagination.
+product.php — This file will display a product (depends on the GET request) and will contain a form that will allow the customer to change the quantity and add to cart the product.
+cart.php — The shopping cart page that will populate all the products that have been added to cart, along with the quantities, total prices, and subtotal price.
+placeorder.php — A basic message that will be displayed to the user when they place an order.
+style.css — The stylesheet (CSS3) we'll use for our shopping cart website.
+imgs — Directory that will contain all the images for our shopping cart system (featured images, product images, etc). You can download the example images by clicking the file name in the file structure container.
+
+
+For this part, you will need to access your MySQL database, either using phpMyAdmin or your preferred MySQL database management application.
+
+If you're using phpMyAdmin, follow these instructions:
+
+Navigate to http://localhost/phpmyadmin/
+Click the Databases tab at the top
+Under Create database, type in shoppingcart in the text box
+Select utf8_general_ci as the collation (UTF-8 is the default encoding in HTML5)
+Click Create
+Feel free to use your own database name, or use shoppingcart as the database name.
+
+create the products table. We'll use this table to store all our products, along with the product name, description, image, price, RRP price, quantity, and the date added columns. We shall retrieve these products later on in the tutorial with PHP.
+
+
+CREATE TABLE IF NOT EXISTS `products` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(200) NOT NULL,
+	`desc` text NOT NULL,
+	`price` decimal(7,2) NOT NULL,
+	`rrp` decimal(7,2) NOT NULL DEFAULT '0.00',
+	`quantity` int(11) NOT NULL,
+	`img` text NOT NULL,
+	`date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+INSERT INTO `products` (`id`, `name`, `desc`, `price`, `rrp`, `quantity`, `img`, `date_added`) VALUES
+(1, 'Smart Watch', '<p>Unique watch made with stainless steel, ideal for those that prefer interative watches.</p>\r\n<h3>Features</h3>\r\n<ul>\r\n<li>Powered by Android with built-in apps.</li>\r\n<li>Adjustable to fit most.</li>\r\n<li>Long battery life, continuous wear for up to 2 days.</li>\r\n<li>Lightweight design, comfort on your wrist.</li>\r\n</ul>', '29.99', '0.00', 10, 'watch.jpg', '2019-03-13 17:55:22'),
+(2, 'Wallet', '', '14.99', '19.99', 34, 'wallet.jpg', '2019-03-13 18:52:49'),
+(3, 'Headphones', '', '19.99', '0.00', 23, 'headphones.jpg', '2019-03-13 18:47:56'),
+(4, 'Digital Camera', '', '69.99', '0.00', 7, 'camera.jpg', '2019-03-13 17:42:04');
